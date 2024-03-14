@@ -11,7 +11,6 @@ class LoginPage extends React.Component {
         , errorCode: null, success: false, id: ""
     }
 
-
     login = () => {
         axios.get("http://localhost:8989/login", {
             params: {
@@ -44,9 +43,7 @@ class LoginPage extends React.Component {
 
     }
 
-
     render() {
-        const propValue = this.state.id;
 
         return (
 
@@ -83,10 +80,8 @@ class LoginPage extends React.Component {
                         {this.state.errorCode}
                     </div>
                 </div>
-
+                {this.state.success ? <Profile id = {this.state.id}/> : this.state.id}
             </div>
-
-
         )
     }
 }
