@@ -1,7 +1,8 @@
 import React, {useState} from "react";
 import axios from "axios";
-import Cookies from 'universal-cookie';
-import Profile from "./Profile";
+import Cookies from "js-cookie";
+import {useNavigate} from "react-router-dom";
+
 
 
 class LoginPage extends React.Component {
@@ -24,9 +25,8 @@ class LoginPage extends React.Component {
                     success: true,
                     id: response.data.id
                 })
-                const cookies = new Cookies(null, {path: '/'})
-                cookies.set('id', response.data.id);
-                cookies.set('secret', response.data.secret);
+                Cookies.set('secret', response.data.secret);
+                //window.locate.replace('./dashboard')
             } else {
                 this.setState({
                     errorCode: response.data.errorCode
@@ -80,7 +80,6 @@ class LoginPage extends React.Component {
                         {this.state.errorCode}
                     </div>
                 </div>
-                {this.state.success ? <Profile id = {this.state.id}/> : this.state.id}
             </div>
         )
     }

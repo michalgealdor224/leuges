@@ -1,16 +1,15 @@
 import React from "react";
 import axios from "axios";
-
+import Cookies from "js-cookie";
 
 class Profile extends React.Component {
 
     state = {
-        username : "" ,
-        password : "",
-        email : "",
-        id : "",
-        isChangeName : false,
-        newUsername : "", newPassword: "" ,newEmail : ""
+        username: "",
+        password: "",
+        email: "",
+        id: "",
+        newUsername: "", newPassword: "", newEmail: ""
     }
 
     componentDidMount() {
@@ -18,36 +17,39 @@ class Profile extends React.Component {
     }
 
 
-    getDataOfUser = (props) => {
+    getDataOfUser = () => {
+        const userSecret = Cookies.get("secret")
         axios.post("http://localhost:8989/get-data", null, {
-            params:{
-                id:this.props.id
-            }
+                params: {
+                    secret: userSecret
+                }
             }
         ).then((response) => {
-            this.setState( {
-                username : response.data.username,
-                password : response.data.password,
-                email : response.data.email
+            this.setState({
+                username: response.data.user.username,
+                password: response.data.user.password,
+                email: response.data.user.email
             })
         })
     }
 
-        setData = () => {
-            axios.post("http://localhost:8989/set-data", null, {
-                params: {
-                    id: this.props.id,
-                    username: this.state.username,
-                    password: this.state.password,
-                    email: this.state.email
-                }
-            }).then((response) => {
-                console.log(this.state.newPassword)
+    setData = () => {
+        axios.post("http://localhost:8989/set-data", null, {
+            params: {
+                id: this.props.id,
+                username: this.state.username,
+                password: this.state.password,
+                email: this.state.email
+            }
+        }).then((response) => {
+            console.log(response.data)
+            if (!response.data.success) {
                 this.setState({
-                    isChangeName: response.data
+                    error: true
                 });
-            });
-        }
+            }
+        });
+    }
 
     inputChange = (key, event) => {
         this.setState({
@@ -63,11 +65,11 @@ class Profile extends React.Component {
 
                 <div>
                     <input value={this.state.username}
-                           onChange={(event) => this.inputChange("username", event)} />
+                           onChange={(event) => this.inputChange("username", event)}/>
                 </div>
 
                 <div>
-                    <input type={"password"}  value={this.state.password}
+                    <input type={"password"} value={this.state.password}
                            onChange={(event) => this.inputChange("password", event)}/>
                 </div>
 
@@ -81,10 +83,10 @@ class Profile extends React.Component {
             </div>
 
 
-
         )
     }
 
 
 }
+
 export default Profile;
