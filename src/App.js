@@ -6,6 +6,7 @@ import SuperAdmin from "./SuperAdmin";
 import DashboardPage from "./DashboardPage";
 import SignUp from "./SignUp";
 import Profile from "./Profile";
+import TableLeague from "./TableLeague";
 
 
 class App extends React.Component {
@@ -17,15 +18,17 @@ class App extends React.Component {
                 <BrowserRouter>
                     <NavLink id={"navLink1"} style={{margin: "10px"}} to={"/SignUp"}> SignUp </NavLink>
                     <NavLink id={"navLink1"} style={{margin: "10px"}} to={"/Profile"}> Profile </NavLink>
+                    <NavLink id={"navLink1"} style={{margin: "10px"}} to={"/TableLeague"}> TableLeague </NavLink>
 
                     <Routes>
-                            <Route path={"/"} element={<LoginPage/>}/>
-                            <Route path={"SignUp"} element={<SignUp/>}/>
-                            <Route path={"/Profile"} element={<Profile/>}/>
-                            <Route path={"/super-admin"} element={<SuperAdmin/>}/>
-                            <Route path={"/dashboard"} element={<DashboardPage/>}/>
+                        <Route path={"/"} element={<LoginPage/>}/>
+                        <Route path={"SignUp"} element={<SignUp/>}/>
+                        <Route path={"/Profile"} element={<Profile/>}/>
+                        <Route path={"/super-admin"} element={<SuperAdmin/>}/>
+                        <Route path={"/dashboard"} element={<DashboardPage/>}/>
+                        <Route path={"/TableLeague"} element={<TableLeague/>}/>
 
-                        </Routes>
+                    </Routes>
                 </BrowserRouter>
 
 
