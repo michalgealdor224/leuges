@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import {useNavigate} from "react-router-dom";
+import "./login.css";
 
 
 
@@ -15,12 +16,11 @@ function LoginPage() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const token = Cookies.get("secret");
-        console.log(token);
-        if (token ===undefined) {
+        const token = Cookies.get('secret');
+        if (token === undefined) {
             navigate("../")
         } else {
-            navigate("../dashboard")
+            navigate("../MyBets")
         }
     }, [])
     const login = () => {
@@ -35,7 +35,7 @@ function LoginPage() {
                 setSuccess(true)
                 setUserId(response.data.id)
                 Cookies.set('secret', response.data.secret);
-                navigate("../dashboard")
+                navigate("../MyBets")
             } else {
                 setErrorCode(response.data.errorCode)
             }

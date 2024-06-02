@@ -1,42 +1,42 @@
 import './App.css';
-import React from "react";
-import {BrowserRouter, BrowserRouter as Router, NavLink, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import LoginPage from "./LoginPage";
-import SuperAdmin from "./SuperAdmin";
 import DashboardPage from "./DashboardPage";
 import SignUp from "./SignUp";
 import Profile from "./Profile";
 import TableLeague from "./TableLeague";
+import NavBar from "./NavBar";
+import AuthProvider from "./AuthProvider";
+import MyBets from "./MyBets";
+import FutureGames from "./FutureGames";
+import BetPage from "./BetPage";
 
 
-class App extends React.Component {
+function App() {
 
-    render() {
-        return (
-            <div className="App">
-
+    return (
+        <>
+            <AuthProvider>
                 <BrowserRouter>
-                    <NavLink id={"navLink1"} style={{margin: "10px"}} to={"/SignUp"}> SignUp </NavLink>
-                    <NavLink id={"navLink1"} style={{margin: "10px"}} to={"/Profile"}> Profile </NavLink>
-                    <NavLink id={"navLink1"} style={{margin: "10px"}} to={"/TableLeague"}> TableLeague </NavLink>
-
-                    <Routes>
-                        <Route path={"/"} element={<LoginPage/>}/>
-                        <Route path={"SignUp"} element={<SignUp/>}/>
-                        <Route path={"/Profile"} element={<Profile/>}/>
-                        <Route path={"/super-admin"} element={<SuperAdmin/>}/>
-                        <Route path={"/dashboard"} element={<DashboardPage/>}/>
-                        <Route path={"/TableLeague"} element={<TableLeague/>}/>
-
-                    </Routes>
+                    <NavBar/>
+                    <div className="container">
+                        <div>
+                            <Routes>
+                                <Route path={"/"} element={<LoginPage/>}/>
+                                <Route path={"/signUp"} element={<SignUp/>}/>
+                                <Route path={"/Profile"} element={<Profile/>}/>
+                                <Route path={"/dashboard"} element={<DashboardPage/>}/>
+                                <Route path={"/TableLeague"} element={<TableLeague/>}/>
+                                <Route path={"/MyBets"} element={<MyBets/>}/>
+                                <Route path={"/FutureGames"} element={<FutureGames/>}/>
+                                <Route path={"/BetPage/:gameId"} element={<BetPage/>}/>
+                            </Routes>
+                        </div>
+                    </div>
                 </BrowserRouter>
-
-
-            </div>
-        )
-    }
-
-
+            </AuthProvider>
+        </>
+    )
 }
 
 export default App;

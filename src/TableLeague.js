@@ -1,8 +1,10 @@
 import React, {useEffect,useState} from "react";
 import axios from "axios";
+import GameTable from "./GameTable";
 
 function TableLeague(){
     const [tableLeague,setTableLeague]=useState([]);
+    const [gamesTable,setGamesTable] =useState([]);
     const [errorCode, setErrorCode] = useState("");
     useEffect(()=>{
         axios.get("http://localhost:8989/get-table", {
@@ -11,15 +13,21 @@ function TableLeague(){
             setTableLeague(response.data)
 
         })
+        axios.get("http://localhost:8989/get-games-played", {
+
+        }).then(response => {
+            setGamesTable(response.data)
+
+        })
     },[])
     return(
-        <div>
+        <div >
             <div>
                 {
                     tableLeague!==undefined?
                         <table>
                             <thead>
-                            <tr>
+                            <tr id={"table-row-header"}>
                                 <th>Team Name</th>
                                 <th>Draws</th>
                                 <th>wins</th>
@@ -49,6 +57,7 @@ function TableLeague(){
                         <div></div>
                 }
             </div>
+            <GameTable games={gamesTable}/>
 
         </div>
 
